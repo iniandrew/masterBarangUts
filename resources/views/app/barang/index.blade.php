@@ -46,13 +46,11 @@
                                 <a href="{{ route('barang.edit', $barang->id) }}" class="btn btn-outline-dark btn-sm me-2"><i class="bi-pencil-square"></i></a>
 
                                 <div>
-                                    <button type="button" class="btn btn-outline-dark btn-sm me-2" id="btn-delete"><i class="bi-trash"></i></button>
-
-{{--                                    <form action="{{ route('barang.destroy', $barang->id) }}" method="POST">--}}
-{{--                                        @csrf--}}
-{{--                                        @method('delete')--}}
-{{--                                        <button type="submit" class="btn btn-outline-dark btn-sm me-2"><i class="bi-trash"></i></button>--}}
-{{--                                    </form>--}}
+                                    <form action="{{ route('barang.destroy', $barang->id) }}" id="formDelete" method="POST">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="button" onclick="deleteData()" class="btn btn-outline-dark btn-sm me-2"><i class="bi-trash"></i></button>
+                                    </form>
                                 </div>
                             </div>
                         </td>
@@ -72,27 +70,22 @@
     <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE=" crossorigin="anonymous"></script>
 
     <script>
-        function deleteData(id) {
+        function deleteData(e) {
+            let form = $('#formDelete');
             Swal.fire({
                 title: 'Apakah Anda Yakin?',
+                text: "Data yang dihapus tidak dapat dikembalikan!",
                 icon: 'warning',
-                buttons: true,
-                dangerMode: true,
-                buttons: {
-                    cancel: "Batal",
-                    confirm: "Hapus",
+                showCancelButton: true,
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal',
+                confirmButtonColor: '#d33',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
                 }
             })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        document.getElementById('delete' + id).submit();
-                    } else {
-                        swal('Dibatalkan!', {
-                            buttons: false,
-                            timer: 500,
-                        });
-                    }
-                });
         }
     </script>
 @endpush
