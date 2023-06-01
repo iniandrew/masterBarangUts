@@ -10,8 +10,9 @@
             <hr class="d-md-none text-white-50">
 
             <ul class="navbar-nav flex-row flex-wrap">
-                <li class="nav-item col-2 col-md-auto"><a href="#" class="nav-link">Home</a></li>
+                <li class="nav-item col-2 col-md-auto"><a href="{{ url('/') }}" class="nav-link">Home</a></li>
                 <li class="nav-item col-2 col-md-auto"><a href="{{ route('barang.index') }}" class="nav-link {{ request()->routeIs('barang.*') ? 'active' : '' }}">Manajemen Barang</a></li>
+                <li class="nav-item col-2 col-md-auto"><a href="{{ route('satuan.index') }}" class="nav-link {{ request()->routeIs('satuan.*') ? 'active' : '' }}">Manajemen Satuan</a></li>
             </ul>
 
             <hr class="d-md-none text-white-50">
