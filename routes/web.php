@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BarangController;
+use App\Http\Controllers\SatuanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts.app');
 });
+
+Route::resource('barang', BarangController::class);
+Route::resource('satuan', SatuanController::class);
