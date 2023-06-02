@@ -16,7 +16,7 @@ class BarangSeeder extends Seeder
     {
         $faker = \Faker\Factory::create('id_ID');
 
-        for ($i = 0; $i <= 20; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             Barang::query()->create([
                 'kode_barang' => 'B-' . $faker->unique()->randomNumber('3'),
                 'nama_barang' => 'Barang ' . $faker->unique()->word(),
