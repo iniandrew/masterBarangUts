@@ -19,5 +19,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/profile', fn () => view('app.profile', [
+    'pageTitle' => 'My Profile',
+]))->name('profile');
+
 Route::resource('barang', BarangController::class);
 Route::resource('satuan', SatuanController::class);
