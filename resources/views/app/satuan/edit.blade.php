@@ -17,7 +17,7 @@
                     <div class="row">
                         <div class="col-md-12 mb-3">
                             <label for="kode_satuan" class="form-label">Kode Satuan</label>
-                            <input class="form-control @error('kode_satuan') is-invalid @enderror" type="text" name="kode_satuan" id="kode_satuan" value="{{ $satuan->kode_satuan }}" placeholder="Masukan kode satuan">
+                            <input class="form-control @error('kode_satuan') is-invalid @enderror" type="text" name="kode_satuan" id="kode_satuan" value="{{ $satuan->kode_satuan }}" placeholder="Masukan kode satuan" maxlength="10">
                             @error('kode_satuan') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
                         <div class="col-md-12 mb-3">
