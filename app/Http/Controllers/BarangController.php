@@ -48,11 +48,13 @@ class BarangController extends Controller
     {
         $filteredData = $this->validateData();
 
-        $command = Barang::query()->create($filteredData);
+        if ($filteredData->fails()) {
+            return redirect()->back()->withErrors($filteredData)->with('error', 'Barang gagal ditambahkan')->withInput();
+        }
 
-        return $command
-            ? redirect()->route('barang.index')->with('success', 'Barang berhasil ditambahkan')
-            : redirect()->back()->with('error', 'Barang gagal ditambahkan');
+        Barang::query()->create($filteredData->getData());
+
+        return redirect()->route('barang.index')->with('success', 'Barang berhasil ditambahkan');
     }
 
     /**
@@ -85,11 +87,13 @@ class BarangController extends Controller
     {
         $filteredData = $this->validateData($barang);
 
-        $command = $barang->update($filteredData);
+        if ($filteredData->fails()) {
+            return redirect()->back()->withErrors($filteredData)->with('error', 'Barang gagal diperbarui')->withInput();
+        }
 
-        return $command
-            ? redirect()->route('barang.index')->with('success', 'Barang berhasil diubah')
-            : redirect()->back()->with('error', 'Barang gagal diubah');
+        $barang->update($filteredData->getData());
+
+        return redirect()->route('barang.index')->with('success', 'Barang berhasil diperbarui');
     }
 
     /**
@@ -104,13 +108,13 @@ class BarangController extends Controller
             : redirect()->back()->with('error', 'Barang gagal dihapus');
     }
 
-    public function validateData(?Barang $barang = null): array
+    public function validateData(?Barang $barang = null)
     {
-        return Validator::validate($this->data, [
-            'kode_barang' => 'required|string|unique:barangs,kode_barang,'.$barang?->id,
-            'nama_barang' => 'required|string',
-            'harga_barang' => 'required|integer',
-            'stok_barang' => 'required|integer',
+        return Validator::make($this->data, [
+            'kode_barang' => 'required|string|max:20|unique:barangs,kode_barang,'.$barang?->id,
+            'nama_barang' => 'required|max:255|string',
+            'harga_barang' => 'required|numeric',
+            'stok_barang' => 'required|numeric',
             'deskripsi_barang' => 'required|string',
             'satuan_id' => 'required|exists:satuans,id',
         ], [
@@ -119,6 +123,7 @@ class BarangController extends Controller
             '*.unique' => ':attribute sudah digunakan',
             '*.integer' => ':attribute harus berupa angka',
             '*.exists' => ':attribute tidak ditemukan',
+            '*.max' => ':attribute maksimal :max karakter',
         ]);
     }
 }

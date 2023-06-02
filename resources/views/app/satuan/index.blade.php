@@ -4,9 +4,9 @@
     <div class="container mt-5">
         <div class="d-flex flex-row justify-content-between mb-4">
             <h4>{{ $pageTitle }}</h4>
-            <a href="{{ route('barang.create') }}" class="btn btn-dark">
+            <a href="{{ route('satuan.create') }}" class="btn btn-dark">
                 <i class="bi bi-plus-lg"></i>
-                Tambah Barang
+                Tambah Satuan
             </a>
         </div>
 
@@ -15,34 +15,24 @@
                 <thead>
                 <tr>
                     <th>No</th>
-                    <th>Kode Barang</th>
-                    <th>Nama Barang</th>
-                    <th>Harga</th>
-                    <th>Deskripsi Barang</th>
-                    <th>Stok</th>
-                    <th>Satuan</th>
-                    <th>Ditambahkan pada</th>
+                    <th>Kode Satuan</th>
+                    <th>Nama Satuan</th>
                     <th class="text-center">Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($barangs as $barang)
+                @foreach($satuans as $satuan)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $barang->kode_barang }}</td>
-                        <td>{{ $barang->nama_barang }}</td>
-                        <td>{{ number_format($barang->harga_barang, 0, ',', '.') }}</td>
-                        <td>{{ Str::words($barang->deskripsi_barang, 20, '...') }}</td>
-                        <td>{{ $barang->stok_barang }}</td>
-                        <td>{{ $barang->satuan->nama_satuan }}</td>
-                        <td>{{ \Illuminate\Support\Carbon::make($barang->created_at)->format('d M Y h:i:s') }}</td>
+                        <td class="w-25">{{ $satuan->kode_satuan }}</td>
+                        <td class="w-50">{{ $satuan->nama_satuan }}</td>
                         <td>
                             <div class="d-flex justify-content-center">
-                                <a href="{{ route('barang.show', $barang->id) }}" class="btn btn-outline-dark btn-sm me-2"><i class="bi-file-text-fill"></i></a>
-                                <a href="{{ route('barang.edit', $barang->id) }}" class="btn btn-outline-dark btn-sm me-2"><i class="bi-pencil-square"></i></a>
+                                <a href="{{ route('satuan.show', $satuan->id) }}" class="btn btn-outline-dark btn-sm me-2"><i class="bi-file-text-fill"></i></a>
+                                <a href="{{ route('satuan.edit', $satuan->id) }}" class="btn btn-outline-dark btn-sm me-2"><i class="bi-pencil-square"></i></a>
 
                                 <div>
-                                    <form action="{{ route('barang.destroy', $barang->id) }}" id="formDelete" method="POST">
+                                    <form action="{{ route('satuan.destroy', $satuan->id) }}" id="formDelete" method="POST">
                                         @csrf
                                         @method('delete')
                                         <button type="button" onclick="deleteData()" class="btn btn-outline-dark btn-sm me-2"><i class="bi-trash"></i></button>
@@ -55,7 +45,7 @@
                 </tbody>
             </table>
             <div class="pt-3 px-3 pb-0">
-                {{ $barangs->links() }}
+                {{ $satuans->links() }}
             </div>
         </div>
     </div>
@@ -68,7 +58,7 @@
             let form = $('#formDelete');
             Swal.fire({
                 title: 'Apakah Anda Yakin?',
-                text: "Data yang dihapus tidak dapat dikembalikan!",
+                text: "Data barang yang menggunakan satuan ini akan terhapus juga!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Ya, hapus!',
