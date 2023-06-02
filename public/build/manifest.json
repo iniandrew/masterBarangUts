@@ -7,6 +7,11 @@
     "file": "assets/bootstrap-icons-cfe45b98.woff2",
     "src": "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2"
   },
+  "resources/css/style.css": {
+    "file": "assets/style-58948ebc.css",
+    "isEntry": true,
+    "src": "resources/css/style.css"
+  },
   "resources/images/deon.jpg": {
     "file": "assets/deon-5dc6b3c0.jpg",
     "src": "resources/images/deon.jpg"
