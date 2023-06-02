@@ -42,10 +42,10 @@
                                 <a href="{{ route('barang.edit', $barang->id) }}" class="btn btn-outline-dark btn-sm me-2"><i class="bi-pencil-square"></i></a>
 
                                 <div>
-                                    <form action="{{ route('barang.destroy', $barang->id) }}" id="formDelete" method="POST">
+                                    <form action="{{ route('barang.destroy', $barang->id) }}" class="formDelete" method="POST">
                                         @csrf
                                         @method('delete')
-                                        <button type="button" onclick="deleteData()" class="btn btn-outline-dark btn-sm me-2"><i class="bi-trash"></i></button>
+                                        <button type="submit" class="btn btn-outline-dark btn-sm me-2"><i class="bi-trash"></i></button>
                                     </form>
                                 </div>
                             </div>
@@ -64,22 +64,25 @@
 @push('scripts')
     <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE=" crossorigin="anonymous"></script>
     <script>
-        function deleteData() {
-            let form = $('#formDelete');
-            Swal.fire({
-                title: 'Apakah Anda Yakin?',
-                text: "Data yang dihapus tidak dapat dikembalikan!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Ya, hapus!',
-                cancelButtonText: 'Batal',
-                confirmButtonColor: '#d33',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    form.submit();
-                }
-            })
-        }
+        $(document).ready(function () {
+            $('.formDelete').submit(function (e) {
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'Apakah Anda Yakin?',
+                    text: "Data yang dihapus tidak dapat dikembalikan!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, hapus!',
+                    cancelButtonText: 'Batal',
+                    confirmButtonColor: '#d33',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.submit();
+                    }
+                })
+            });
+        });
     </script>
 @endpush
